@@ -1,11 +1,6 @@
 const mongoose = require('mongoose');
-const db = mongoose.connection;
 const MD5 = require('md5');
 
-db.on('error', console.error.bind(console, '连接错误：'))
-db.once('open', (callback) => {
-    console.log('MongoDB连接成功！！')
-})
 //申明一个mongoons对象
 const UsersSchema = new mongoose.Schema({
     name: {
