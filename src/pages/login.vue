@@ -48,7 +48,7 @@ export default {
                 }).then(res => {
                     if (!res.data.isAdmin) {
                         this.$message.error('您没有权限登录');
-                    }else{
+                    } else {
                         this.teacherLogin('aindex');
                     }
                 })
@@ -61,21 +61,23 @@ export default {
         },
         teacherLogin(pathName) {
             axios.post('/api/teacher/login', {
-                    name: this.uname,
-                    password: this.upass,
-                }).then(res => {
-                    if(res.data.success){
-                        this.$message({
-                            type:'success',
-                            message:'登陆成功',
-                        })
-                        this.$router.push({
-                            name:pathName,
-                        })
-                    }else{
-                        this.$message.error('用户名或者密码错误');
-                    }
-                })
+                name: this.uname,
+                password: this.upass,
+            }).then(res => {
+                console.log(res);
+                if (res.data.success) {
+                    this.$message({
+                        type: 'success',
+                        message: '登陆成功',
+                    })
+                    this.$store.commit('SET_TOKEN', res.data.token);
+                    this.$router.push({
+                        name: pathName,
+                    })
+                } else {
+                    this.$message.error('用户名或者密码错误');
+                }
+            })
         }
     }
 }
