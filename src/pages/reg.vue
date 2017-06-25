@@ -7,6 +7,7 @@
                 <el-input v-model="upass" type="password" placeholder="请输入密码"></el-input>
                 <el-input v-model="rpass" :class="[rpassR===true ? 'right' : 'wrong']" type="password" placeholder="请再次输入密码"></el-input>
                 <el-button @click="reg" type="primary">注册</el-button>
+                <el-button class="back" @click="$router.go(-1)">返回</el-button>
             </div>
         </div>
     </div>
@@ -79,7 +80,6 @@ export default {
 <style lang="scss" scoped>
 .reg {
     position: relative;
-    top: -80px;
     height: 100%;
     width: 100%;
     background: #20A0FF;
@@ -132,6 +132,9 @@ export default {
                 &:hover {
                     background: #42474F;
                 }
+            }
+            .back{
+                margin-left: 0;
             }
         }
     }

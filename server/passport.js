@@ -16,7 +16,7 @@ module.exports = function(passport) {
                 if (!user) {
                     return done(null, false);
                 }
-                return done(null, user);
+                return done(null, true);
             });
         }
     ));

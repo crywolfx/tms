@@ -17,13 +17,8 @@ export default {
     },
     methods: {
         test() {
-            this.axios({
-                method: "POST",
-                url: '/api/teacher/test',
-                data: {
-                    firstName: "Fred",
-                    lastName: "Flintstone"
-                },
+            this.axios.post('/api/teacher/test',{
+                name:'wwwww'
             }).then(res => {
                 console.log(res);
             })

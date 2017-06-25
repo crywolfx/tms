@@ -15,6 +15,22 @@ const UsersSchema = new mongoose.Schema({
     token: {
         type: String
     },
+    sex: String,
+    nationality: String,
+    native: String,
+    idcard: String,
+    reName: String,
+    address: String,
+    phone: String,
+    email: String,
+    born: String,
+    health: String,
+    workyear: String, //入职年份
+    qualification: String, //最高学历
+    school: String, //			学校
+    division: String, //	所属部门
+    title: String, //职称
+    politics: String, //政治面貌
     meta: {
         createAt: {
             type: Date,

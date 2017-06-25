@@ -90,10 +90,10 @@ router.post('/login', function(req, res, next) { //登录
 router.post('/test',
     passport.authenticate('bearer', { session: false }),
     function(req, res) {
-        console.log(req.body);
-        res.json({
-            username: req.user.name
-        });
+        console.log(req.user);
+        // res.json({
+        //     username: req.user.name
+        // });
     });
 // router.post('/test', ensureAuthorized, function(req, res) {
 //     Teacher.findOne({

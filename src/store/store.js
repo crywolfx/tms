@@ -6,7 +6,7 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
     state: {
         userId: '',
-        token: '',
+        token: localStorage.getItem('token') || '',
     },
     mutations: {
         SET_USERID(state, id) {

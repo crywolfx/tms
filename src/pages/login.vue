@@ -64,13 +64,13 @@ export default {
                 name: this.uname,
                 password: this.upass,
             }).then(res => {
-                console.log(res);
                 if (res.data.success) {
                     this.$message({
                         type: 'success',
                         message: '登陆成功',
                     })
                     this.$store.commit('SET_TOKEN', res.data.token);
+                    localStorage.setItem('token', res.data.token);
                     this.$router.push({
                         name: pathName,
                     })
@@ -85,7 +85,6 @@ export default {
 <style lang="scss" scoped>
 .login {
     position: relative;
-    top: -80px;
     height: 100%;
     width: 100%;
     background: #20A0FF;
