@@ -7,8 +7,7 @@ const jwt = require('jsonwebtoken');
 const passport = require('passport');
 require('../passport')(passport);
 // const ensureAuthorized = require('../authorized');
-
-router.post('/reg', function(req, res, next) { //注册
+router.post('/checkName', function(req, res) {
     Teacher.findOne({ //查一下有没有该用户名
         name: req.body.uname
     }, (err, doc) => {
@@ -16,24 +15,49 @@ router.post('/reg', function(req, res, next) { //注册
             console.log(err);
         }
         if (doc) {
-            res.send({
-                hasReg: true
+            res.json({
+                success: false,
+                msg: "该帐号已被注册"
             })
         } else {
-            const user = new Teacher({
-                name: req.body.uname,
-                password: md5(req.body.upass)
-            })
-            user.save((err, doc) => {
-                if (doc) {
-                    res.send({
-                        hasReg: false,
-                        success: true,
-                        uname: doc.name,
-                    })
-                }
+            res.json({
+                success: true,
+                msg: "该帐号未被注册"
             })
         }
+
+    })
+
+    router.post('/reg', function(req, res, next) { //注册
+        const user = new Teacher({
+            name: req.body.name,
+            password: md5(req.body.pass),
+            reName: req.body.reName,
+            sex: req.body.sex,
+            age: req.body.age,
+            health: req.body.health,
+            nationality: req.body.nationality,
+            native: req.body.native,
+            idcard: req.body.idcard,
+            email: req.body.email,
+            phoneNum: req.body.phoneNum,
+            born: req.body.born,
+            address: req.body.address,
+            school: req.body.school,
+            division: req.body.division,
+            workyear: req.body.workyear,
+            title: req.body.title,
+            politics: req.body.politics,
+            qualification: req.body.qualification,
+        })
+        user.save((err, doc) => {
+            if (doc) {
+                res.json({
+                    success: true,
+                    uname: doc.name,
+                })
+            }
+        })
     })
 });
 
@@ -77,7 +101,7 @@ router.post('/login', function(req, res, next) { //登录
                 success: true,
                 message: '验证成功!',
                 token: 'Bearer ' + token,
-                name: doc.name
+                data: doc
             });
         } else {
             res.send({
@@ -88,30 +112,16 @@ router.post('/login', function(req, res, next) { //登录
 })
 
 router.post('/test',
-    passport.authenticate('bearer', { session: false }),
+    passport.authenticate('bearer', {
+        session: false
+    }),
     function(req, res) {
         console.log(req.user);
         // res.json({
         //     username: req.user.name
         // });
     });
-// router.post('/test', ensureAuthorized, function(req, res) {
-//     Teacher.findOne({
-//         token: req.token
-//     }, function(err, user) {
-//         if (err) {
-//             res.json({
-//                 success: false,
-//                 data: "Error occured: " + err
-//             });
-//         } else {
-//             res.json({
-//                 success: true,
-//                 data: user
-//             });
-//         }
-//     });
-// })
+
 
 
 

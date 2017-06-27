@@ -49,17 +49,17 @@ export default {
                     if (!res.data.isAdmin) {
                         this.$message.error('您没有权限登录');
                     } else {
-                        this.teacherLogin('aindex');
+                        this.teacherLogin('aindex', true);
                     }
                 })
             } else {
-                this.teacherLogin('tindex');
+                this.teacherLogin('tindex', false);
             }
         },
         handleCommand(command) {
             this.type = command;
         },
-        teacherLogin(pathName) {
+        teacherLogin(pathName, isAdmin) {
             axios.post('/api/teacher/login', {
                 name: this.uname,
                 password: this.upass,
@@ -67,10 +67,14 @@ export default {
                 if (res.data.success) {
                     this.$message({
                         type: 'success',
-                        message: '登陆成功',
+                        message: `欢迎${res.data.data.reName}登录`,
                     })
                     this.$store.commit('SET_TOKEN', res.data.token);
+                    this.$store.commit('SET_IS_ADMIN', isAdmin);
+                    this.$store.commit('SET_USER_INFO',res.data.data);
+                    localStorage.setItem('userInfo',JSON.stringify(res.data.data));
                     localStorage.setItem('token', res.data.token);
+                    localStorage.setItem('isAdmin', isAdmin);
                     this.$router.push({
                         name: pathName,
                     })

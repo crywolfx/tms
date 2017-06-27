@@ -39,6 +39,7 @@ const router = new Router({
             component: AIndex,
             meta: {
                 requireAuth: true, 
+                admin: true,
             },
         }
     ]
@@ -46,7 +47,17 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
     if (to.meta.requireAuth) { // 判断该路由是否需要登录权限
         if (store.state.token) { // 通过vuex state获取当前的token是否存在
-            next();
+            if(to.meta.admin){  //判断是否是管理员
+                if(store.state.isAdmin){
+                    next();
+                }else{
+                    next({
+                        path: '/login'
+                    })
+                }
+            }else{
+                next();
+            }
         } else {
             next({
                 path: '/login',

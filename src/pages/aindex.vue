@@ -1,14 +1,19 @@
 <template>
-    <button @click="test">
-        11111111</button>
+    <div class="aindex">
+        <vheader></vheader>
+    </div>
 </template>
 <script>
+import header from '../components/header'
 export default {
     name: 'aindex',
     data() {
         return {
 
         }
+    },
+    components: {
+        vheader: header,
     },
     computed: {
         token() {
@@ -27,5 +32,8 @@ export default {
 }
 </script>
 <style lang="scss">
-
+.tindex {
+    height: 100%;
+    width: 100%;
+}
 </style>
